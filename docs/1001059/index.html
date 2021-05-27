@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template ">
+  <head>
+    <meta charset="utf-8">
+    <title>CASTLE HOWARD | Park-and-garden | Digital Land</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0b0c0c">     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="shortcut icon" sizes="48x48" href="/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" sizes="32x32" href="/images/favicon-32x32.png" type="image/png">
+<link rel="shortcut icon" sizes="16x16" href="/images/favicon-16x16.png" type="image/png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+	<meta name="digital-land:template" content="page-per-thing/record.html"><!-- should make this optional, no need to load if not showing a map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+crossorigin="" />
+
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+	crossorigin=""></script>
+
+<!-- assets needed for fullscreen maps -->
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
+<!-- script needed for recentring map -->
+<script src="https://digital-land.github.io/javascripts/Leaflet.recentre.js"></script>
+
+<script src="https://digital-land.github.io/javascripts/dl-maps.js"></script>	<link href="https://digital-land.github.io/stylesheets/dl-frontend.css" rel="stylesheet" />    <meta property="og:image" content="/images/govuk-opengraph-image.png">
+  </head>
+  <body class="govuk-template__body ">
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+
+      <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+
+<!-- Cookie banner partial version 1.0.1 -->
+<div id="global-cookie-message" class="govuk-clearfix global-cookie-message" data-module="cookie-banner" role="region" aria-label="cookie banner" data-nosnippet="">
+
+  <div id="cookie-banner" class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="cookie-banner__message govuk-!-margin-top-6">
+          <h2 class="govuk-heading-m">Tell us whether you accept cookies</h2>
+          <p class="govuk-body">We use <a class="govuk-link" href="/cookies">cookies to collect information</a> about how you use the Digital Land website to make the website work as well as possible.</p>
+        </div>
+        <div class="cooke-banner__buttons govuk-grid-row">
+          <div class="govuk-grid-column-one-half">
+            <button class="govuk-button" onclick="acceptCookies();showCookieConfirmation();">Accept all cookies</button>
+          </div>
+          <div class="govuk-grid-column-one-half">
+            <a class="govuk-button" href="/cookies">Set cookie preferences</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cookie-confirmation" class="govuk-width-container govuk-!-padding-top-6" tabindex="-1" style="display: none;">
+    <p class="cookie-banner__confirmation-message govuk-body">You’ve accepted all cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
+    <button class="cookie-banner__hide-button govuk-button govuk-button--secondary" onclick="document.getElementById('cookie-confirmation').style.display='none';">Hide</button>
+  </div>
+
+</div><header role="banner" id="global-header" class="govuk-header  with-proposition dl-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="header-proposition">
+      <div class="govuk-header__content">
+        <a href="https://digital-land.github.io/" class="govuk-header__link govuk-header__link--service-name">
+        Digital Land
+        </a>
+        <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>        <nav>
+          <ul id="navigation" class="govuk-header__navigation" aria-label="Top Level Navigation">
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/about">Team</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/project/">Projects</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/weeknote/">Weeknotes</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/blog-post/">Blog</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/guidance/">Guidance</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/dataset/">Datasets</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/organisation/">Organisations</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/map/">Map</a>
+            </li>
+          </ul>
+        </nav>
+</div>
+    </div>
+  </div>
+</header>
+
+      <div class="govuk-width-container ">
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content"><strong class="govuk-tag govuk-phase-banner__content__tag ">
+  prototype
+</strong><span class="govuk-phase-banner__text">
+      This is a prototype. Please provide feedback to the Digital Land team.
+    </span>
+  </p>
+</div><div class="govuk-breadcrumbs ">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/">Digital Land</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="../">Park And Garden</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">1001059</li>
+  </ol>
+</div>        <main class="govuk-main-wrapper " id="main-content" role="main">
+
+<span class="govuk-caption-xl">Park and garden</span>
+    <h1 class="govuk-heading-xl">CASTLE HOWARD</h1>
+<div class="govuk-tabs" data-module="dlf-subnav">
+    <h2 class="govuk-tabs__title">
+      Contents
+    </h2>
+    <nav class="dlf-subnav" aria-label="Sub navigation">
+        <ul class="dlf-subnav__list">
+            <li class="dlf-subnav__list-item dlf-subnav__list-item--selected">
+                <a class="dlf-subnav__list-item__link" href="#record" data-module-sub-nav="tab">
+                Record
+                </a>
+            </li>
+            <li class="dlf-subnav__list-item">
+                <a class="dlf-subnav__list-item__link" href="#history" data-module-sub-nav="tab">
+                History
+                </a>
+            </li><li class="dlf-subnav__list-item">
+                <a class="dlf-subnav__list-item__link" href="#referenced-by" data-module-sub-nav="tab">
+                0 References
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+<div id="record">
+<div class="govuk-grid-row">    <div class="govuk-grid-column-two-thirds"><article class="data-record govuk-!-margin-bottom-6">
+    <h4 class="govuk-heading-s data-record__identifier">#/park-and-garden/1001059</h4>
+    <dl class="govuk-summary-list data-record__properties">            <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">park-and-garden
+            </dt>
+            <dd class="govuk-summary-list__value">                <span class="dl-select-all">1001059</span>            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">park-and-garden-grade
+            </dt>
+            <dd class="govuk-summary-list__value">                I            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">documentation-url
+            </dt>
+            <dd class="govuk-summary-list__value">                <a class="govuk-link" href="https://historicengland.org.uk/listing/the-list/list-entry/1001059">https://historicengland.org.uk/listing/the-list/list-entry/1001059</a>            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">start-date
+            </dt>
+            <dd class="govuk-summary-list__value">                1984-05-10            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">name
+            </dt>
+            <dd class="govuk-summary-list__value">                CASTLE HOWARD            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">entry-date
+            </dt>
+            <dd class="govuk-summary-list__value">                2021-05-27            </dd>
+        </div>    
+    </dl></article>
+</div>
+            
+</div>
+
+    <h2 class="govuk-heading-m">Geographical area</h2>
+
+    <div class="dl-map__wrapper"><div 
+    class="dl-map govuk-!-margin-top-4"
+    id="dlMap"
+    data-module="boundary-map"
+    style="height: 460px;" data-geojson-urls="geometry.geojson"   
+>
+    <noscript>To view this map, you need to enable JavaScript.</noscript>
+</div>
+    </div>
+
+    <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-6">
+        <a class="dl-page-action-button" href="geometry.geojson">Download geojson</a>
+    </div>
+<h3 class="govuk-heading-m">Associated information</h3>
+
+<ul class="govuk-list govuk-list--bullet">
+    <li><a href="https://digital-land.github.io/specification/schema/park-and-garden/">View the park-and-garden schema</a></li></ul>
+
+</div>
+
+<div id="history"><h2 class="govuk-heading-m dlf-subnav__heading">History</h2>
+<div class="data-table__wrapper" data-module="data-table">
+    <div class="data-table-left-shadow with-transition"></div>
+    <div class="wide-table">
+        <table class="data-table">
+    <thead>
+        <tr>
+            <th>entry-date</th>
+            <th>resource</th>
+            <th>line</th>
+            <th>park-and-garden</th>
+            <th>park-and-garden-grade</th>
+            <th>name</th>
+            <th>documentation-url</th>
+            <th>geometry</th>
+            <th>start-date</th>
+        </tr>
+    </thead>
+    <tbody>        <tr>
+            <td>2021-05-27</td>
+            <td><a href="https://github.com/digital-land/park-and-garden-collection/tree/main/transformed/park-and-garden/2a768be816ad5678e354dabc79f95e9a9547c0fe4db665754bb1d45a6e34cd71.csv#L954">2a768be816ad...</a></td>
+            <td>953</td>
+                <td>1001059</td> 
+                <td>I</td> 
+                <td>CASTLE HOWARD</td> 
+                <td>https://historicengland.org.uk/listing/the-list/list-entry/1001059</td> 
+                <td class="data-table__notes-cell data-table__cell--min-width-4">
+                    <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      See WKT
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    MULTIPOLYGON (((-0.922599 54.150248,-0.922210 54.147686,-0.922188 54.147612,-0.922111 54.147613,-0.921530 54.145308,-0.920162 54.140161,-0.920154 54.140065,-0.920205 54.140062,-0.920184 54.139994,-0.919535 54.140066,-0.918694 54.140046,-0.918569 54.139526,-0.918726 54.139525,-0.918017 54.136985,-0.917220 54.137074,-0.917699 54.134054,-0.917521 54.132603,-0.916938 54.132533,-0.914198 54.132025,-0.914305 54.131923,-0.913522 54.130608,-0.913245 54.130596,-0.913065 54.130506,-0.912404 54.130473,-0.910124 54.130158,-0.909208 54.129998,-0.909111 54.129948,-0.908837 54.129907,-0.908696 54.129843,-0.908091 54.129739,-0.908008 54.129769,-0.907947 54.129894,-0.907336 54.129761,-0.907127 54.129655,-0.906816 54.129695,-0.906762 54.129739,-0.906403 54.129728,-0.906126 54.129784,-0.904038 54.129911,-0.903739 54.129889,-0.903543 54.129779,-0.902623 54.129574,-0.902105 54.129557,-0.901970 54.129592,-0.901804 54.129684,-0.901292 54.129578,-0.900939 54.129562,-0.899905 54.129623,-0.899695 54.129687,-0.899361 54.129618,-0.899218 54.129556,-0.899060 54.129571,-0.898900 54.129465,-0.898644 54.129478,-0.898052 54.129391,-0.897451 54.129465,-0.896983 54.129314,-0.896106 54.128966,-0.895805 54.128812,-0.895230 54.128396,-0.894815 54.128201,-0.894205 54.127999,-0.893947 54.127861,-0.893261 54.127731,-0.892922 54.127623,-0.892756 54.127435,-0.892711 54.127266,-0.892527 54.127155,-0.892481 54.127048,-0.892159 54.126612,-0.892132 54.126198,-0.891878 54.125767,-0.891678 54.125319,-0.891398 54.124971,-0.891199 54.124834,-0.890986 54.124481,-0.890804 54.124356,-0.890789 54.124164,-0.890729 54.124039,-0.890863 54.123634,-0.890760 54.123552,-0.890745 54.123518,-0.890796 54.123398,-0.890653 54.123236,-0.890093 54.122974,-0.889860 54.122828,-0.889561 54.122809,-0.889477 54.122778,-0.889449 54.122726,-0.889269 54.122713,-0.889066 54.122554,-0.888823 54.122579,-0.888689 54.122454,-0.888551 54.122397,-0.887846 54.122243,-0.887464 54.122230,-0.887254 54.122320,-0.887014 54.122272,-0.886795 54.122311,-0.886569 54.122184,-0.886053 54.122319,-0.885876 54.122173,-0.885471 54.122145,-0.885201 54.122019,-0.884978 54.121995,-0.884793 54.121883,-0.884544 54.121793,-0.884309 54.121539,-0.884174 54.121320,-0.884087 54.121109,-0.884032 54.120841,-0.883848 54.120535,-0.883542 54.120398,-0.883362 54.120157,-0.883061 54.120038,-0.882408 54.119440,-0.882406 54.119395,-0.882596 54.119244,-0.882466 54.119042,-0.882352 54.118943,-0.882217 54.118874,-0.882055 54.119040,-0.881943 54.119058,-0.881773 54.118914,-0.879041 54.117538,-0.878698 54.117450,-0.878501 54.117370,-0.878371 54.117276,-0.878451 54.117173,-0.878376 54.117114,-0.878264 54.116918,-0.878327 54.116862,-0.878494 54.116812,-0.878432 54.116702,-0.878435 54.116628,-0.878352 54.116526,-0.878284 54.116356,-0.877751 54.115984,-0.877593 54.115759,-0.877312 54.115600,-0.877180 54.115434,-0.876780 54.115149,-0.876677 54.115023,-0.876478 54.114887,-0.876389 54.114789,-0.876224 54.114285,-0.876299 54.114133,-0.876290 54.113939,-0.876421 54.113702,-0.876007 54.113674,-0.875445 54.113724,-0.874913 54.113707,-0.874240 54.113832,-0.874672 54.113053,-0.875015 54.113159,-0.875361 54.113215,-0.875558 54.113198,-0.875796 54.113118,-0.876093 54.112947,-0.876351 54.112737,-0.877500 54.111699,-0.878802 54.110943,-0.879325 54.110731,-0.879666 54.110532,-0.879824 54.110341,-0.880402 54.109329,-0.880403 54.109272,-0.880332 54.109130,-0.880104 54.108925,-0.879913 54.108820,-0.879607 54.108711,-0.879525 54.108642,-0.879518 54.108573,-0.879583 54.108526,-0.879773 54.108514,-0.880757 54.108747,-0.880949 54.108726,-0.881033 54.108633,-0.881387 54.108014,-0.882184 54.106992,-0.882759 54.107126,-0.882733 54.107156,-0.882752 54.107213,-0.882840 54.107285,-0.882958 54.107315,-0.883035 54.107400,-0.882992 54.107455,-0.883023 54.107473,-0.883282 54.107539,-0.883521 54.107705,-0.883719 54.107721,-0.883993 54.107829,-0.884314 54.108016,-0.884443 54.108048,-0.884596 54.108195,-0.884742 54.108225,-0.884899 54.108322,-0.885448 54.108491,-0.886008 54.108571,-0.886287 54.108573,-0.886578 54.108625,-0.886658 54.108606,-0.886832 54.108683,-0.887104 54.108683,-0.887532 54.108819,-0.888119 54.108902,-0.888282 54.108957,-0.888545 54.108965,-0.888923 54.109112,-0.889378 54.109090,-0.889726 54.109200,-0.890162 54.109249,-0.890523 54.109239,-0.890749 54.109378,-0.890904 54.109432,-0.891710 54.109537,-0.892212 54.109639,-0.892495 54.109633,-0.893455 54.109777,-0.893788 54.109897,-0.894090 54.109912,-0.894320 54.110015,-0.894511 54.110023,-0.894634 54.110080,-0.894803 54.110091,-0.894940 54.110063,-0.895249 54.110145,-0.895591 54.110125,-0.896193 54.110310,-0.896276 54.110360,-0.896333 54.110446,-0.896688 54.110603,-0.896850 54.110613,-0.896985 54.110724,-0.897223 54.110739,-0.897336 54.110811,-0.897525 54.110870,-0.897836 54.110865,-0.898562 54.111044,-0.898704 54.111157,-0.899237 54.111322,-0.900334 54.111505,-0.902014 54.112185,-0.902764 54.112535,-0.902929 54.112570,-0.903710 54.112871,-0.904415 54.113061,-0.904816 54.113202,-0.905421 54.113321,-0.907048 54.113531,-0.907656 54.113698,-0.908560 54.113828,-0.910289 54.114219,-0.911261 54.114280,-0.909790 54.108369,-0.910158 54.108154,-0.909979 54.107883,-0.910674 54.107896,-0.911566 54.107771,-0.910990 54.106230,-0.910376 54.103681,-0.907634 54.103641,-0.907535 54.103086,-0.907471 54.102901,-0.907470 54.102880,-0.910313 54.102831,-0.909423 54.100307,-0.909858 54.100420,-0.909875 54.100380,-0.909809 54.100078,-0.909673 54.099705,-0.909373 54.098653,-0.909339 54.098574,-0.909274 54.098555,-0.909198 54.098231,-0.908949 54.097631,-0.908663 54.096431,-0.908457 54.096074,-0.908345 54.095831,-0.908346 54.095761,-0.908188 54.095485,-0.908019 54.094901,-0.908067 54.094898,-0.908013 54.094599,-0.908361 54.094496,-0.909186 54.094389,-0.910183 54.098137,-0.910836 54.100779,-0.911555 54.101089,-0.911564 54.101177,-0.911645 54.101309,-0.911653 54.101362,-0.911627 54.101376,-0.913565 54.105437,-0.912419 54.105589,-0.912919 54.106353,-0.912941 54.106350,-0.912734 54.107317,-0.913174 54.107352,-0.913587 54.107827,-0.913741 54.107861,-0.915146 54.108660,-0.915197 54.108626,-0.915825 54.109123,-0.916015 54.109621,-0.916120 54.110068,-0.916000 54.110586,-0.915916 54.110763,-0.915499 54.111271,-0.915418 54.111497,-0.915256 54.111728,-0.915228 54.111836,-0.915278 54.111995,-0.915626 54.112363,-0.915648 54.112551,-0.915697 54.112643,-0.916130 54.112846,-0.916636 54.113258,-0.917155 54.113492,-0.917443 54.113815,-0.917738 54.114214,-0.918275 54.114630,-0.918488 54.115010,-0.918847 54.115275,-0.919136 54.115392,-0.920685 54.115333,-0.921323 54.115215,-0.921388 54.115024,-0.923487 54.115111,-0.924528 54.115110,-0.925622 54.115286,-0.926403 54.115369,-0.926372 54.115481,-0.926632 54.115498,-0.928913 54.115523,-0.929709 54.115707,-0.930566 54.116047,-0.931048 54.116336,-0.931703 54.116595,-0.932342 54.116771,-0.932837 54.116847,-0.933210 54.116942,-0.934013 54.117251,-0.934941 54.117540,-0.935757 54.117874,-0.936018 54.118015,-0.936171 54.118138,-0.936218 54.118126,-0.936342 54.118277,-0.936748 54.118990,-0.937101 54.119482,-0.937033 54.119577,-0.937156 54.119684,-0.937209 54.120162,-0.937191 54.120639,-0.937120 54.120987,-0.936929 54.121433,-0.936800 54.121953,-0.936957 54.122537,-0.937194 54.122619,-0.937944 54.123208,-0.938275 54.123694,-0.938452 54.124030,-0.938487 54.124517,-0.938408 54.124951,-0.938275 54.125183,-0.938169 54.126310,-0.938108 54.129269,-0.937378 54.129706,-0.936290 54.129863,-0.935410 54.129889,-0.934535 54.130199,-0.932006 54.130957,-0.932048 54.131007,-0.931925 54.131047,-0.930135 54.131493,-0.929923 54.131629,-0.929131 54.131807,-0.929076 54.131721,-0.928551 54.131810,-0.926581 54.132249,-0.923256 54.132829,-0.922663 54.132879,-0.921541 54.132876,-0.920784 54.132819,-0.919481 54.132648,-0.919481 54.132836,-0.919951 54.134948,-0.919912 54.134972,-0.920301 54.137102,-0.920503 54.138007,-0.920856 54.139263,-0.921139 54.140457,-0.921163 54.140456,-0.921290 54.140924,-0.922112 54.144127,-0.922943 54.147506,-0.922948 54.147634,-0.923519 54.149553,-0.923636 54.150112,-0.923121 54.150221,-0.922898 54.150213,-0.922741 54.150274,-0.922599 54.150248)))
+  </div>
+</details>
+                </td>
+                <td>1984-05-10</td> 
+        </tr>    </tbody>
+</table>
+
+    </div>
+    <div class="data-table-right-shadow visible with-transition"></div>
+</div>
+</div><div id="referenced-by">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h2 class="govuk-heading-m dlf-subnav__heading">Referenced by</h2>
+            <p class="govuk-body">This record is referenced by 0 other planning related data records.</p>
+</div>
+    </div>
+</div>
+        </main>
+      </div>
+
+    <div class="dlf-feedback__wrapper">
+    <div class="dlf-feedback">
+    <div class="dlf-feedback__prompt">
+        <div class="dlf-feedback__prompt-content">
+            <span class="dlf-feedback__prompt-content__text">Spotted an issue? Let us know so we can improve the data.</span>
+        </div>
+        <div class="dlf-feedback__prompt-action">
+            <a href="mailto:digitalLand@communities.gov.uk?subject=Feedback on (park-and-garden) CASTLE HOWARD -- park-and-garden" class="govuk-button dlf-feedback__prompt__link">There is something wrong with the data</a>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<footer class="govuk-footer " role="contentinfo"
+>
+  <div class="govuk-width-container ">
+    <div class="govuk-footer__meta">
+      <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+          <h2 class="govuk-visually-hidden">Support links</h2>              <ul class="govuk-footer__inline-list">
+                  <li class="govuk-footer__inline-list-item">
+                    <a class="govuk-footer__link" href="/cookies">
+                      Cookies
+                    </a>
+                  </li>
+                  <li class="govuk-footer__inline-list-item">
+                    <a class="govuk-footer__link" href="/accessibility-statement">
+                      Accessibility statement
+                    </a>
+                  </li>
+                  <li class="govuk-footer__inline-list-item">
+                    <a class="govuk-footer__link" href="/design-system">
+                      Design system
+                    </a>
+                  </li>
+              </ul>
+            <div class="govuk-footer__meta-custom">
+              The <a class="govuk-footer__link" href="https://github.com/digital-land/digital-land/">software</a> and <a class="govuk-footer__link" href="https://github.com/digital-land/digital-land/">data</a> used to build these pages is <a class="govuk-footer__link" href="https://github.com/digital-land/digital-land/blob/master/LICENSE">open source</a>.
+            </div>
+        <svg
+          role="presentation"
+          focusable="false"
+          class="govuk-footer__licence-logo"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 483.2 195.7"
+          height="17"
+          width="41"
+        >
+          <path
+            fill="currentColor"
+            d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"
+          />
+        </svg>
+        <span class="govuk-footer__licence-description">
+          All content is available under the
+          <a
+            class="govuk-footer__link"
+            href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            rel="license"
+          >Open Government Licence v3.0</a>, except where otherwise stated
+        </span>
+      </div>
+      <div class="govuk-footer__meta-item">
+        <a
+          class="govuk-footer__link govuk-footer__copyright-logo"
+          href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
+        >© Crown copyright</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="https://digital-land.github.io/javascripts/dl-cookies.js"></script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	<!-- end google analytics -->
+
+	<script src="https://digital-land.github.io/javascripts/govuk/govuk-frontend.min.js"></script>
+	<script>
+		// initiate all GOVUK components
+		window.GOVUKFrontend.initAll();
+	</script>
+
+	<script src="https://digital-land.github.io/javascripts/dl-frontend.js"></script>
+	<script>
+		// adds any necessary polyfills
+		window.DLFrontend.polyfill();
+	</script>
+
+<script>
+    const datasetName = "park-and-garden"
+    const $mapElement = document.querySelector('[data-module="boundary-map"]')
+    const $nationalMapLink = document.querySelector('.dl-link-national-map')
+    const mapComponent = new DLMaps.Map($mapElement).init({
+        initGeoJsonLoadCallback: function (urls, featureGroup) {
+            console.log("initial load completed")
+            // do we need to check there isn't more than one shape?
+            const center = featureGroup.getBounds().getCenter()
+            const zoom = mapComponent.map.getZoom()
+            let url = `http://digital-land.github.io/leaflet-spike/?layer=${datasetName}#${center.lat},${center.lng},${zoom}z`
+            console.log(url)
+            if ($nationalMapLink) {
+                // only show this for the datasets we've added to the national map
+                $nationalMapLink.href = url
+                $nationalMapLink.classList.remove("js-hidden")
+            }
+        }
+    })
+</script>
+<script>
+    // Initialise back to top
+    var $data_tables = document.querySelectorAll('[data-module*="data-table"]')
+    $data_tables.forEach(data_table => {
+        new window.DLFrontend.ScrollableTables(data_table).init()
+    })
+</script>
+
+<script>
+    const $subNavTabs = document.querySelector('[data-module="dlf-subnav"]')
+    const subNavTabsComponent = new DLFrontend.SubNavTabs($subNavTabs).init({})
+</script>  </body>
+</html>
