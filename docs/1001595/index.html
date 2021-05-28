@@ -155,6 +155,10 @@ crossorigin="" />
             </dt>
             <dd class="govuk-summary-list__value">                <a class="govuk-link" href="https://historicengland.org.uk/listing/the-list/list-entry/1001595">https://historicengland.org.uk/listing/the-list/list-entry/1001595</a>            </dd>
         </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">start-date
+            </dt>
+            <dd class="govuk-summary-list__value">                2002-02-19            </dd>
+        </div>        <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">name
             </dt>
             <dd class="govuk-summary-list__value">                POOLE CEMETERY            </dd>
@@ -162,10 +166,6 @@ crossorigin="" />
             <dt class="govuk-summary-list__key">park-and-garden
             </dt>
             <dd class="govuk-summary-list__value">                <span class="dl-select-all">1001595</span>            </dd>
-        </div>        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">start-date
-            </dt>
-            <dd class="govuk-summary-list__value">                2002-02-19            </dd>
         </div>        <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">park-and-garden-grade
             </dt>
@@ -214,10 +214,10 @@ crossorigin="" />
             <th>line</th>
             <th>start-date</th>
             <th>name</th>
-            <th>park-and-garden</th>
-            <th>geometry</th>
             <th>park-and-garden-grade</th>
             <th>documentation-url</th>
+            <th>geometry</th>
+            <th>park-and-garden</th>
         </tr>
     </thead>
     <tbody>        <tr>
@@ -226,7 +226,8 @@ crossorigin="" />
             <td>1488</td>
                 <td>2002-02-19</td> 
                 <td>POOLE CEMETERY</td> 
-                <td>1001595</td> 
+                <td>II</td> 
+                <td>https://historicengland.org.uk/listing/the-list/list-entry/1001595</td> 
                 <td class="data-table__notes-cell data-table__cell--min-width-4">
                     <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -239,8 +240,7 @@ crossorigin="" />
   </div>
 </details>
                 </td>
-                <td>II</td> 
-                <td>https://historicengland.org.uk/listing/the-list/list-entry/1001595</td> 
+                <td>1001595</td> 
         </tr>    </tbody>
 </table>
 
@@ -355,7 +355,7 @@ crossorigin="" />
             // do we need to check there isn't more than one shape?
             const center = featureGroup.getBounds().getCenter()
             const zoom = mapComponent.map.getZoom()
-            let url = `http://digital-land.github.io/leaflet-spike/?layer=${datasetName}#${center.lat},${center.lng},${zoom}z`
+            let url = `http://digital-land.github.io/map?layer=${datasetName}#${center.lat},${center.lng},${zoom}z`
             console.log(url)
             if ($nationalMapLink) {
                 // only show this for the datasets we've added to the national map
