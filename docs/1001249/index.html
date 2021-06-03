@@ -151,14 +151,6 @@ crossorigin="" />
 <div class="govuk-grid-row">    <div class="govuk-grid-column-two-thirds"><article class="data-record govuk-!-margin-bottom-6">
     <h4 class="govuk-heading-s data-record__identifier">#/park-and-garden/1001249</h4>
     <dl class="govuk-summary-list data-record__properties">            <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">start-date
-            </dt>
-            <dd class="govuk-summary-list__value">                1992-11-22            </dd>
-        </div>        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">park-and-garden-grade
-            </dt>
-            <dd class="govuk-summary-list__value">                II            </dd>
-        </div>        <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">park-and-garden
             </dt>
             <dd class="govuk-summary-list__value">                <span class="dl-select-all">1001249</span>            </dd>
@@ -166,6 +158,14 @@ crossorigin="" />
             <dt class="govuk-summary-list__key">documentation-url
             </dt>
             <dd class="govuk-summary-list__value">                <a class="govuk-link" href="https://historicengland.org.uk/listing/the-list/list-entry/1001249">https://historicengland.org.uk/listing/the-list/list-entry/1001249</a>            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">park-and-garden-grade
+            </dt>
+            <dd class="govuk-summary-list__value">                II            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">start-date
+            </dt>
+            <dd class="govuk-summary-list__value">                1992-11-22            </dd>
         </div>        <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">name
             </dt>
@@ -212,20 +212,20 @@ crossorigin="" />
             <th>entry-date</th>
             <th>resource</th>
             <th>line</th>
-            <th>documentation-url</th>
             <th>name</th>
+            <th>documentation-url</th>
             <th>geometry</th>
+            <th>park-and-garden</th>
             <th>start-date</th>
             <th>park-and-garden-grade</th>
-            <th>park-and-garden</th>
         </tr>
     </thead>
     <tbody>        <tr>
             <td>2021-06-01</td>
             <td><a href="https://github.com/digital-land/park-and-garden-collection/tree/main/transformed/park-and-garden/127149a3a44f6495c6fad377347a02e403cc79ff12f108b9020f1942fc86def3.csv#L1144">127149a3a44f...</a></td>
             <td>1143</td>
-                <td>https://historicengland.org.uk/listing/the-list/list-entry/1001249</td> 
                 <td>PRIDEAUX PLACE</td> 
+                <td>https://historicengland.org.uk/listing/the-list/list-entry/1001249</td> 
                 <td class="data-table__notes-cell data-table__cell--min-width-4">
                     <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -238,9 +238,9 @@ crossorigin="" />
   </div>
 </details>
                 </td>
+                <td>1001249</td> 
                 <td>1992-11-22</td> 
                 <td>II</td> 
-                <td>1001249</td> 
         </tr>    </tbody>
 </table>
 
@@ -350,7 +350,7 @@ crossorigin="" />
     const $mapElement = document.querySelector('[data-module="boundary-map"]')
     const $nationalMapLink = document.querySelector('.dl-link-national-map')
     const mapComponent = new DLMaps.Map($mapElement).init({
-        initGeoJsonLoadCallback: function (urls, featureGroup) {
+        initZoomCallback: function (featureGroup) {
             console.log("initial load completed")
             // do we need to check there isn't more than one shape?
             const center = featureGroup.getBounds().getCenter()
