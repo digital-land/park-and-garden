@@ -152,27 +152,27 @@ crossorigin="" />
 <div class="govuk-grid-row">    <div class="govuk-grid-column-two-thirds"><article class="data-record govuk-!-margin-bottom-6">
     <h4 class="govuk-heading-s data-record__identifier">#/park-and-garden/1000366</h4>
     <dl class="govuk-summary-list data-record__properties">            <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">park-and-garden-grade
-            </dt>
-            <dd class="govuk-summary-list__value">                II*            </dd>
-        </div>        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">documentation-url
-            </dt>
-            <dd class="govuk-summary-list__value">                <a class="govuk-link" href="https://historicengland.org.uk/listing/the-list/list-entry/1000366">https://historicengland.org.uk/listing/the-list/list-entry/1000366</a>            </dd>
-        </div>        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">park-and-garden
-            </dt>
-            <dd class="govuk-summary-list__value">                <span class="dl-select-all">1000366</span>            </dd>
-        </div>        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">start-date
+            <dt class="govuk-summary-list__key">Start date
             </dt>
             <dd class="govuk-summary-list__value">                1988-12-01            </dd>
         </div>        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">name
+            <dt class="govuk-summary-list__key">Park and garden
+            </dt>
+            <dd class="govuk-summary-list__value">                <span class="dl-select-all">1000366</span>            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Name
             </dt>
             <dd class="govuk-summary-list__value">                ROTHERFIELD HALL            </dd>
         </div>        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">entry-date
+            <dt class="govuk-summary-list__key">Park and garden grade
+            </dt>
+            <dd class="govuk-summary-list__value">                II*            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Documentation URL
+            </dt>
+            <dd class="govuk-summary-list__value">                <a class="govuk-link" href="https://historicengland.org.uk/listing/the-list/list-entry/1000366">https://historicengland.org.uk/listing/the-list/list-entry/1000366</a>            </dd>
+        </div>        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Entry date
             </dt>
             <dd class="govuk-summary-list__value">                2021-08-13            </dd>
         </div>    
@@ -187,7 +187,7 @@ crossorigin="" />
     class="dl-map govuk-!-margin-top-4"
     id="dlMap"
     data-module="boundary-map"
-    style="height: 460px;" data-geojson-urls="geometry.geojson"   
+    style="height: 460px;"   
 >
     <noscript>To view this map, you need to enable JavaScript.</noscript>
 </div>
@@ -214,20 +214,21 @@ crossorigin="" />
             <th>entry-date</th>
             <th>resource</th>
             <th>line</th>
-            <th>name</th>
-            <th>park-and-garden-grade</th>
-            <th>geometry</th>
-            <th>start-date</th>
-            <th>documentation-url</th>
             <th>park-and-garden</th>
+            <th>documentation-url</th>
+            <th>start-date</th>
+            <th>geometry</th>
+            <th>park-and-garden-grade</th>
+            <th>name</th>
         </tr>
     </thead>
     <tbody>        <tr>
             <td>2021-08-13</td>
             <td><a href="https://github.com/digital-land/park-and-garden-collection/tree/main/transformed/park-and-garden/fe4d801a220e204e972de15094362c4a7519118e20118533b82c9765d713cee2.csv#L261">fe4d801a220e...</a></td>
             <td>260</td>
-                <td>ROTHERFIELD HALL</td> 
-                <td>II*</td> 
+                <td>1000366</td> 
+                <td>https://historicengland.org.uk/listing/the-list/list-entry/1000366</td> 
+                <td>1988-12-01</td> 
                 <td class="data-table__notes-cell data-table__cell--min-width-4">
                     <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -240,9 +241,8 @@ crossorigin="" />
   </div>
 </details>
                 </td>
-                <td>1988-12-01</td> 
-                <td>https://historicengland.org.uk/listing/the-list/list-entry/1000366</td> 
-                <td>1000366</td> 
+                <td>II*</td> 
+                <td>ROTHERFIELD HALL</td> 
         </tr>    </tbody>
 </table>
 
@@ -351,21 +351,25 @@ crossorigin="" />
     const datasetName = "park-and-garden"
     const $mapElement = document.querySelector('[data-module="boundary-map"]')
     const $nationalMapLink = document.querySelector('.dl-link-national-map')
-    const mapComponent = new DLMaps.Map($mapElement).init({
-        initZoomCallback: function (featureGroup) {
-            console.log("initial load completed")
-            // do we need to check there isn't more than one shape?
-            const center = featureGroup.getBounds().getCenter()
-            const zoom = mapComponent.map.getZoom()
-            let url = `http://digital-land.github.io/map?layer=${datasetName}#${center.lat},${center.lng},${zoom}z`
-            console.log(url)
-            if ($nationalMapLink) {
-                // only show this for the datasets we've added to the national map
-                $nationalMapLink.href = url
-                $nationalMapLink.classList.remove("js-hidden")
-            }
-        }
-    })
+    const mapParams = {
+    initZoomCallback: function (featureGroup, map) {
+          console.log("initial load completed")
+          // do we need to check there isn't more than one shape?
+          const center = featureGroup.getBounds().getCenter()
+          const zoom = map.getZoom()
+          let url = `http://digital-land.github.io/map?layer=${datasetName}#${center.lat},${center.lng},${zoom}z`
+          console.log(url)
+          if ($nationalMapLink) {
+              // only show this for the datasets we've added to the national map
+              $nationalMapLink.href = url
+              $nationalMapLink.classList.remove("js-hidden")
+          }
+      }
+    }
+
+    mapParams.geojsonURLs = ["geometry.geojson"]
+
+    const mapComponent = new DLMaps.Map($mapElement).init(mapParams)
 </script>
 <script>
     // Initialise back to top
